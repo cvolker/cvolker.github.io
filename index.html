@@ -1,0 +1,240 @@
+
+<!DOCTYPE html>
+
+<html>
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+
+    
+
+  
+
+
+
+</head>
+
+
+
+<body>
+
+
+
+
+
+    
+
+
+
+        <div id="mynetwork" style="height:65vh;"></div>
+
+
+
+
+
+
+
+    <script type="text/javascript">
+
+
+
+        // initialize global variables.
+
+        var edges;
+
+        var nodes;
+
+        var network;
+
+        var container;
+
+        var options, data;
+
+
+
+
+
+        // This method is responsible for drawing the graph, returns the drawn network
+
+        function drawGraph() {
+
+            var container = document.getElementById('mynetwork');
+
+
+
+
+
+
+
+            // parsing and collecting nodes and edges from the python
+
+            nodes = new vis.DataSet([{ "color": "rgba(255,0,0, 0.95)", "font": { "color": "white" }, "id": "my skills", "label": "my skills", "shape": "star", "size": 40 }, { "color": "#E6DB74", "font": { "color": "white" }, "id": "social sciences", "label": "social sciences", "shape": "star" }, { "color": "#FD971F", "font": { "color": "white" }, "id": "applied mathematics", "label": "applied mathematics", "shape": "star" }, { "color": "#A6E22E", "font": { "color": "white" }, "id": "programming", "label": "programming", "shape": "star" }, { "color": "#AE81FF", "font": { "color": "white" }, "id": "visualization", "label": "visualization", "shape": "star" }, { "font": { "color": "white" }, "id": "Python", "image": "icon/python.png", "label": "Python", "shape": "image", "size": 10 }, { "font": { "color": "white" }, "id": "R", "image": "icon/R.png", "label": "R", "shape": "image", "size": 10 }, { "font": { "color": "white" }, "id": "Bash/Zsh", "image": "icon/linux.png", "label": "Bash/Zsh", "shape": "image", "size": 15 }, { "font": { "color": "white" }, "id": "SQL", "image": "icon/db.png", "label": "SQL", "shape": "image", "size": 10 }, { "font": { "color": "white" }, "id": "MATLAB", "image": "icon/matlab.png", "label": "MATLAB", "shape": "image", "size": 10 }, { "font": { "color": "white" }, "id": "HTML/CSS/JS", "image": "icon/web.png", "label": "HTML/CSS/JS", "shape": "image", "size": 10 }, { "font": { "color": "white" }, "id": "Java", "image": "icon/java.png", "label": "Java", "shape": "image", "size": 20 }, { "font": { "color": "white" }, "id": "Gephi", "label": "Gephi", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "Tableau", "label": "Tableau", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "social network analysis", "label": "social network analysis", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "matrix algebra", "label": "matrix algebra", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "differential equations", "label": "differential equations", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "statistics", "label": "statistics", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "Machine Learning", "label": "Machine Learning", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "probability distributions", "label": "probability distributions", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "stochastic modeling", "label": "stochastic modeling", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "supervised", "label": "supervised", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "unsupervised", "label": "unsupervised", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "social processes", "label": "social processes", "shape": "dot", "size": 10 }, { "font": { "color": "white" }, "id": "classical theories", "label": "classical theories", "shape": "dot", "size": 10 }]);
+
+            edges = new vis.DataSet([{ "from": "my skills", "to": "programming", "weight": 1 }, { "from": "my skills", "to": "visualization", "weight": 1 }, { "from": "my skills", "to": "applied mathematics", "weight": 1 }, { "from": "my skills", "to": "social sciences", "weight": 1 }, { "from": "programming", "to": "Python", "weight": 1 }, { "from": "programming", "to": "R", "weight": 1 }, { "from": "programming", "to": "SQL", "weight": 1 }, { "from": "programming", "to": "HTML/CSS/JS", "weight": 1 }, { "from": "programming", "to": "Bash/Zsh", "weight": 1 }, { "from": "programming", "to": "MATLAB", "weight": 1 }, { "from": "programming", "to": "Java", "weight": 1 }, { "from": "visualization", "to": "Gephi", "weight": 1 }, { "from": "visualization", "to": "Tableau", "weight": 1 }, { "from": "Gephi", "to": "social network analysis", "weight": 1 }, { "from": "applied mathematics", "to": "matrix algebra", "weight": 1 }, { "from": "applied mathematics", "to": "differential equations", "weight": 1 }, { "from": "applied mathematics", "to": "statistics", "weight": 1 }, { "from": "statistics", "to": "Machine Learning", "weight": 1 }, { "from": "statistics", "to": "probability distributions", "weight": 1 }, { "from": "statistics", "to": "stochastic modeling", "weight": 1 }, { "from": "Machine Learning", "to": "supervised", "weight": 1 }, { "from": "Machine Learning", "to": "unsupervised", "weight": 1 }, { "from": "social sciences", "to": "social processes", "weight": 1 }, { "from": "social sciences", "to": "classical theories", "weight": 1 }, { "from": "social sciences", "to": "social network analysis", "weight": 1 }, { "from": "social network analysis", "to": "stochastic modeling", "weight": 1 }]);
+
+
+
+            // adding nodes and edges to the graph
+
+            data = { nodes: nodes, edges: edges };
+
+
+
+            var options = {
+
+                "configure": {
+
+                    "enabled": false
+
+                },
+
+                "edges": {
+
+                    "color": {
+
+                        "inherit": true
+
+                    },
+
+                    "smooth": {
+
+                        "enabled": false,
+
+                        "type": "continuous"
+
+                    }
+
+                },
+
+                "interaction": {
+
+                    "dragNodes": true,
+
+                    "hideEdgesOnDrag": false,
+
+                    "hideNodesOnDrag": false
+
+                },
+
+                "physics": {
+
+                    "enabled": true,
+
+                    "forceAtlas2Based": {
+
+                        "avoidOverlap": 0,
+
+                        "centralGravity": 0.01,
+
+                        "damping": 0.4,
+
+                        "gravitationalConstant": -50,
+
+                        "springConstant": 0.08,
+
+                        "springLength": 100
+
+                    },
+
+                    "solver": "forceAtlas2Based",
+
+                    "stabilization": {
+
+                        "enabled": true,
+
+                        "fit": true,
+
+                        "iterations": 1000,
+
+                        "onlyDynamicEdges": false,
+
+                        "updateInterval": 50
+
+                    }
+
+                }
+
+            };
+
+
+
+
+
+
+
+
+
+
+
+            network = new vis.Network(container, data, options);
+
+
+
+
+
+
+
+
+
+
+
+
+
+            return network;
+
+
+
+        }
+
+
+
+        drawGraph();
+
+
+
+    </script>
+
+
+
+
+
+
+
+
+
+</body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</html>
